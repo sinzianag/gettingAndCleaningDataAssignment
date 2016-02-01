@@ -15,3 +15,10 @@ The stepst that the code goes through:
 3. Assign the correct variable names ( Add factor info to the variable names )
 4. Filter just the mean and the sd
 5. Average based on activity and subject.
+
+A full description of the original data is available at the site where the data was obtained:
+
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+Course: https://www.coursera.org/learn/data-cleaning/
+
