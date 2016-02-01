@@ -12,13 +12,13 @@
         test_X <- read.table("./UCI\ HAR\ Dataset/test/X_test.txt")
 
         # Add Factors for the activity
-        train_Y$V1 <- factor(train_Y$V1,
-                            levels = activity_labels$V1,
-                            labels = activity_labels$V2)
+     #   train_Y$V1 <- factor(train_Y$V1,
+      #                      levels = activity_labels$V1,
+      #                      labels = activity_labels$V2)
 
-        test_Y$V1 <- factor(test_Y$V1,
-                             levels = activity_labels$V1,
-                             labels = activity_labels$V2)
+       # test_Y$V1 <- factor(test_Y$V1,
+#                             levels = activity_labels$V1,
+ #                            labels = activity_labels$V2)
 
         # Name the columns before we merge the data
         colnames(train_X) <- features$V2
@@ -39,10 +39,19 @@
         write.table(total, "run_analysis_data.txt", col.names = TRUE)
 
         # Filter only the means and the standard deviations
-        total_filtered <- total[ , grepl( "mean|std" , names( total ), ignore.case = FALSE ) ]
+        total_filtered <- total[ , grepl( "SubjectID|Activity|mean|std" , names( total ), ignore.case = FALSE ) ]
 
         # Save them to a file
         write.table(total_filtered, "run_analysis_data_mean_std.txt", col.names = TRUE)
 
+        #Summary Data
+        frame <- as.data.frame(total_filtered)
+        summarised_data <- ddply(frame, .(SubjectID,Activity), colMeans)
+        summarised_data$Activity <- factor(summarised_data$Activity,
+                                                    levels = activity_labels$V1,
+                                                    labels = activity_labels$V2)
+        write.table(total_filtered, "summary_run_analysis.txt", col.names = TRUE, row.names = FALSE)
+
+        summarised_data
  }
 
